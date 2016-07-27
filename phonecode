@@ -40,27 +40,42 @@ class Node:
             self.lookup[index] = node
         return node
 
-head = Node()
+class Phonecode:
+        self.roots = [None for i in range(10)]
 
-def find_words(number):
-    results = []
-    node = head
-    for i in range(len(number)):
-        c = number[i]
-        if c.isdigit():
-            node = node.lookup[int(c)]
-            if not node:
-                break
-            left = number[:i+1]
-            right = number[i+1:]
-            for word in node.words:
-                results.append(Result(left, right, word))
-    return results
+    def _find_words(self, number):
+        results = []
+        node = head
+        for i in range(len(number)):
+            c = number[i]
+            if c.isdigit():
+                node = node.lookup[int(c)]
+                if not node:
+                    break
+                left = number[:i+1]
+                right = number[i+1:]
+                for word in node.words:
+                    results.append(Result(left, right, word))
+        return results
 
-def find_aliases(number, last_was_digit=False):
-    result = find_words(number)
-    for result in results
-    return result
+    def find_aliases(number):
+        result = self._find_words(number)
+        if result:
+
+        else:
+            if len(number) == 1:
+                return [[number],]
+            d = number[0]
+            number = number[1:]
+            result = self._find_words(number)
+
+            if not result:
+                return []
+
+
+        words_array = []
+        for result in results
+        return result
 
 
 if __name__ == '__main__':
