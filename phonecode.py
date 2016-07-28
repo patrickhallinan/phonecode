@@ -18,12 +18,9 @@ for i, s in enumerate(letters):
         letter_to_number_map[c.lower()] = i
 
 class Result:
-    def __init__(self, left, right, word):
-        self.left = left
-        self.right = right
+    def __init__(self, word, numbers_left):
         self.word = word
-    def __str__(self):
-        return "%s=%s, %s" % (self.left, self.word, self.right)
+        self.numbers_left = numbers_left
 
 class Node:   
     def __init__(self):
@@ -59,23 +56,23 @@ class Phonecode:
         return results
 
     def find_aliases(number):
-        result = self._find_words(number)
-        if result:
+        words_array = []
+
+        results = self._find_words(number)
+        if results:
+            for result in results:
 
         else:
             if len(number) == 1:
                 return [[number],]
             d = number[0]
             number = number[1:]
-            result = self._find_words(number)
+            results = self._find_words(number)
 
-            if not result:
+            if results:
                 return []
 
-
-        words_array = []
-        for result in results
-        return result
+        return words_array
 
 
 if __name__ == '__main__':
