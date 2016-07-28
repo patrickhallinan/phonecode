@@ -22,23 +22,45 @@ class Result:
         self.word = word
         self.numbers_left = numbers_left
 
-class Node:   
+class Base(object):   
     def __init__(self):
         self.lookup = [None for i in range(10)]
-        self.words = []
-    
-    def add_letter(self, c):
-        if not c.isalpha():
-            return self
-        index = letter_to_number_map[c]
-        node = self.lookup[index]
-        if not node:
-            node = Node()
-            self.lookup[index] = node
-        return node
 
-class Phonecode:
-        self.roots = [None for i in range(10)]
+    def find_letter(self, word):
+        for i, c in enumerate(word):
+            if c.isalpha():
+                return i, c
+        return -1, None
+
+class Node(Base):
+    def __init__(self):
+        super(Node, self).__init__()
+        self.words = []
+
+    def add_word(self, fragment, word):
+        i, c = self.find_letter(fragment)
+        if i >= 0:
+            index = letter_to_number_map[c]
+            node = self.lookup[index]
+            if not node:
+                node = self.lookup[index] = Node()
+            node.add_word(fragment[i+1:], word)
+        else:
+            self.words.append(word)
+
+class Phonecode(Base):
+    def __init__(self):
+        super(Phonecode, self).__init__()
+
+    def add_word(self, word):
+        i, c = self.find_letter(word)
+        if i >= 0:
+            index = letter_to_number_map[c]
+            node = self.lookup[index]
+            if not node:
+                node = self.lookup[index] = Node()
+
+            node.add_word(word[i+1:], word)
 
     def _find_words(self, number):
         results = []
